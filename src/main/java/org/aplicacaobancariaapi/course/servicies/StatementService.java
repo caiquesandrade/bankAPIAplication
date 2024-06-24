@@ -39,7 +39,7 @@ public class StatementService {
 
         if (checkTransferencePeriodAllowed()) {
             if (valueToTransfer > originAccount.getAccountTransferLimit()) {
-                System.out.printf("You value to transfer %.2f is greater than your account limit to transfer %s", valueToTransfer, originAccount.getAccountTransferLimit());
+                System.out.printf("You value to transfer %.2f is greater than your account limit to transfer %s ", valueToTransfer, originAccount.getAccountTransferLimit());
                 return null;
             } else {
                 doTransferMoney(originAccountNumber, destinationAccountNumber, valueToTransfer);

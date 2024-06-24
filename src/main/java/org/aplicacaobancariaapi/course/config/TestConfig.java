@@ -12,7 +12,6 @@ import org.springframework.context.annotation.Profile;
 
 import java.time.Instant;
 import java.util.Arrays;
-import java.util.HashSet;
 
 @Configuration
 @Profile("test")
@@ -35,11 +34,8 @@ public class TestConfig implements CommandLineRunner {
         Statement s2 = new Statement(null, 3839.42, a2, null, TransactionType.DEPOSIT, Instant.now());
         Statement s3 = new Statement(null, 200.00, a2, null, TransactionType.WITHDRAW, Instant.now());
 
-        a1.getStatements().add(s1);
-        a2.getStatements().add(s2);
-        a2.getStatements().add(s3);
+       statementRepository.saveAll(Arrays.asList(s1, s2, s3));
 
-        accountRepository.saveAll(Arrays.asList(a1,a2));
 
     }
 }

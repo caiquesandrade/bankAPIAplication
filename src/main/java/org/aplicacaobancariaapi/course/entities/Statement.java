@@ -1,7 +1,7 @@
 package org.aplicacaobancariaapi.course.entities;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import org.aplicacaobancariaapi.course.entities.enums.TransactionType;
 
@@ -10,7 +10,6 @@ import java.io.Serializable;
 import java.time.Instant;
 import java.util.Objects;
 
-@JsonIgnoreProperties(ignoreUnknown = true)
 @Entity
 public class Statement implements Serializable {
     @Serial
@@ -18,14 +17,15 @@ public class Statement implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Long statementId;
     private Double totalValue;
     private Integer transactionType;
+
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss'Z'", timezone = "GMT")
     private Instant instant;
 
     @JsonIgnore
     @ManyToOne
-    @MapsId
     private Account  originAccount;
 
     @JsonIgnore
@@ -36,7 +36,7 @@ public class Statement implements Serializable {
     }
 
     public Statement(Long id, Double totalValue, Account originAccount, Account destinationAccount, TransactionType transactionType, Instant instant) {
-        this.id = id;
+        this.statementId = id;
         this.totalValue = totalValue;
         this.originAccount = originAccount;
         this.destinationAccount = destinationAccount;
@@ -45,11 +45,11 @@ public class Statement implements Serializable {
     }
 
     public Long getId() {
-        return id;
+        return statementId;
     }
 
     public void setId(Long id) {
-        this.id = id;
+        this.statementId = id;
     }
     public Double getTotalValue() {
         return totalValue;
@@ -98,11 +98,11 @@ public class Statement implements Serializable {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Statement statement = (Statement) o;
-        return Objects.equals(id, statement.id);
+        return Objects.equals(statementId, statement.statementId);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id);
+        return Objects.hash(statementId);
     }
 }

@@ -1,11 +1,9 @@
 package org.aplicacaobancariaapi.course.entities;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 
 import java.io.Serial;
 import java.io.Serializable;
-import java.util.Collection;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
@@ -14,7 +12,6 @@ import java.util.Set;
 public class Account implements Serializable {
     @Serial
     private static final long serialVersionUID = 1L;
-
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

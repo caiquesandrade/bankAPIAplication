@@ -1,6 +1,5 @@
 package org.aplicacaobancariaapi.course.resources;
 
-import org.aplicacaobancariaapi.course.entities.Account;
 import org.aplicacaobancariaapi.course.entities.Statement;
 import org.aplicacaobancariaapi.course.servicies.StatementService;
 import org.springframework.beans.factory.annotation.Autowired;

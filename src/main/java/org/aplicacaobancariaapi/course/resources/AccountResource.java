@@ -1,7 +1,7 @@
 package org.aplicacaobancariaapi.course.resources;
 
 import org.aplicacaobancariaapi.course.entities.Account;
-import org.aplicacaobancariaapi.course.entities.Statement;
+import org.aplicacaobancariaapi.course.repositories.AccountRepository;
 import org.aplicacaobancariaapi.course.servicies.AccountService;
 import org.aplicacaobancariaapi.course.servicies.StatementService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +23,8 @@ public class AccountResource {
 
     @Autowired
     private StatementService statementService;
+    @Autowired
+    private AccountRepository accountRepository;
 
     @GetMapping
     public ResponseEntity<List<Account>> findAll() {
@@ -42,6 +44,12 @@ public class AccountResource {
         obj = service.insert(obj);
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(obj.getAccountID()).toUri();
         return ResponseEntity.created(uri).body(obj);
+    }
+
+    @DeleteMapping(value = {"/{id}"})
+    public ResponseEntity<Void> delete(@PathVariable Long id) {
+        service.delete(id);
+        return ResponseEntity.noContent().build();
     }
 
     @PutMapping(value = "/deposit/{id}")
@@ -69,6 +77,12 @@ public class AccountResource {
             return ResponseEntity.badRequest().body(result);
         }
         return ResponseEntity.ok().body(result);
+    }
+
+    @PutMapping(value = "/{id}")
+    public ResponseEntity<Account> update(@PathVariable Long id, @RequestBody Account obj) {
+        obj = service.update(id, obj);
+        return ResponseEntity.ok().body(obj);
     }
 
 }
